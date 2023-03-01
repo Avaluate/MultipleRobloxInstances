@@ -1,0 +1,8 @@
+C:\Users\leona\Desktop\MainDabSrc\MultipleRoblox\obj\Debug\MultipleRoblox.csproj.SuggestedBindingRedirects.cache
+C:\Users\leona\Desktop\MainDabSrc\MultipleRoblox\obj\Debug\MultipleRoblox.csproj.CoreCompileInputs.cache
+C:\Users\leona\Desktop\MainDabSrc\MultipleRoblox\obj\Debug\MultipleRoblox.csproj.AssemblyReference.cache
+C:\Users\leona\Desktop\MainDabSrc\MultipleRoblox\bin\Debug\MultipleRobloxInstances.exe.config
+C:\Users\leona\Desktop\MainDabSrc\MultipleRoblox\bin\Debug\MultipleRobloxInstances.exe
+C:\Users\leona\Desktop\MainDabSrc\MultipleRoblox\bin\Debug\MultipleRobloxInstances.pdb
+C:\Users\leona\Desktop\MainDabSrc\MultipleRoblox\obj\Debug\MultipleRobloxInstances.exe
+C:\Users\leona\Desktop\MainDabSrc\MultipleRoblox\obj\Debug\MultipleRobloxInstances.pdb
