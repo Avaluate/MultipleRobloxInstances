@@ -3,9 +3,8 @@ This program will allow you to have mutliple instances of Roblox running at the 
 
 [![](https://i.imgur.com/el2EOj2.png)](https://i.imgur.com/el2EOj2.png)
 
-
 #### I just want to download it
-There is more information including the download link [here.](https://github.com/Avaluate/MultipleRobloxInstances/releases/tag/V1 "here.")
+There is more information including the download link [here.](https://github.com/Avaluate/MultipleRobloxInstances/releases/tag/V1 "here.") Usage instructions are included on the release page.
 
 #### How this works
 You can see how this works in [program.cs](https://github.com/MainDabRblx/MultipleRobloxInstances/blob/main/Program.cs "program.cs"). 
