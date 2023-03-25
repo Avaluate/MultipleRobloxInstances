@@ -18,4 +18,4 @@ new Mutex(true, "ROBLOX_singletonMutex");
 It is pretty self explanatory.
 
 #### Can I use this in my program?
-You are free to go downloading the source and using the code. Use it as you wish. You do not need to include credits for me since this is so basic.
+You are free to go downloading the source and using the code. Use it as you wish. You do not need to include credits for me since this is a really simple program.
