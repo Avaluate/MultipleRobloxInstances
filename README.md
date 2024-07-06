@@ -15,12 +15,16 @@ My Discord username is `avaluate` if you need help.
 MainDab (now called [Echolyth on Discord](https://dsc.gg/echolyth)) no longer discusses any form of Roblox utility, but you can still join to contact me.
 
 #### How this works
+Note: although the program already states this, closing the program will close all but one of the Roblox windows.
+
 You can see how this works in [program.cs](https://github.com/MainDabRblx/MultipleRobloxInstances/blob/main/Program.cs "program.cs"). 
 
 It boils down to this :
 ```csharp
 new Mutex(true, "ROBLOX_singletonMutex");
 ```
+
+What this does is essentially locking the Roblox thread. Logically speaking because of this, Roblox isn't able to make a new mutex (or rather, because an existing one already exists). 
 
 #### Can I use this in my program?
 You are free to go downloading the source and using the code. Use it as you wish. You do not need to include credits for me since this is a really simple program.
