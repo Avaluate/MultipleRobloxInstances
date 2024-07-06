@@ -1,10 +1,13 @@
 #### I just want to download it
-See [this](https://github.com/Avaluate/MultipleRobloxInstances/releases/tag/V1 "here") or look at Releases.
+See [this](https://github.com/Avaluate/MultipleRobloxInstances/releases/tag/V1 "here") or look at Releases. This works as of July 7 2024.
 
 ## Multiple Roblox Instances
-This program allows you to run 2 or more different Roblox accounts at the same time. This is not against the Roblox ToS and applications such as Bloxstrap have similar functionality.
+This program allows you to run 2 or more different Roblox accounts at the same time. This is not against the Roblox ToS and applications such as Bloxstrap had similar functionality, however Bloxstrap removed it due to fears people were [using it to farm](https://github.com/pizzaboxer/bloxstrap/wiki/Plans-to-remove-multi%E2%80%90instance-launching-from-Bloxstrap) and that their implementation was a "hit or miss".
 
 [![](https://i.imgur.com/el2EOj2.png)](https://i.imgur.com/el2EOj2.png)
+
+#### Current problems
+Teleports will not work with Multiple Roblox Instances. This issue has been around before and after Roblox's additional anti-tamper (combatting Roblox exploits) measures, so please do not make an issue about this.
 
 #### I need help
 My Discord username is `avaluate` if you need help. 
