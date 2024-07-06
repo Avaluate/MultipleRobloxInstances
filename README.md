@@ -1,10 +1,10 @@
+#### I just want to download it
+See [this](https://github.com/Avaluate/MultipleRobloxInstances/releases/tag/V1 "here") or look at Releases.
+
 ## Multiple Roblox Instances
 This program allows you to run 2 or more different Roblox accounts at the same time. This is not against the Roblox ToS and applications such as Bloxstrap have similar functionality.
 
 [![](https://i.imgur.com/el2EOj2.png)](https://i.imgur.com/el2EOj2.png)
-
-#### I just want to download it
-There is more information including the download link [here](https://github.com/Avaluate/MultipleRobloxInstances/releases/tag/V1 "here"). Usage instructions are included on the release page.
 
 #### I need help
 My Discord username is `avaluate` if you need help. 
