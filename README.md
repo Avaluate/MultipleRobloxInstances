@@ -32,7 +32,7 @@ new Mutex(true, "ROBLOX_singletonMutex");
 What this does is essentially locking the Roblox thread. Logically speaking because of this, Roblox isn't able to make a new mutex (or rather, because an existing one already exists). 
 
 #### Can I use this in my program?
-You are free to go downloading the source and using the code. Use it as you wish. You do not need to include credits for me since this is a really simple program.
+Yes.
 
 #### Brief history
 I had originally made this for [MainDab](https://github.com/Avaluate/MainDab "MainDab"), a keyless Roblox exploit. I recently (6 July 2024) unarchived this project to improve upon it.
