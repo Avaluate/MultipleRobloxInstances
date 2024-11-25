@@ -17,8 +17,6 @@ Bloxstrap removed the multiple Roblox instances feature due to fears people were
 #### I need help
 My Discord username is `avaluate` if you need help. 
 
-MainDab (now called [Echolyth on Discord](https://dsc.gg/echolyth)) no longer discusses any form of Roblox utility, but you can still join to contact me.
-
 #### How this works
 Note: although the program already states this, closing the program will close all but one of the Roblox windows.
 
