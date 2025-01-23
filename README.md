@@ -1,5 +1,5 @@
 #### I just want to download it
-See [this](https://github.com/Avaluate/MultipleRobloxInstances/releases/tag/V1 "here") or look at Releases. This works as of 14 July 2024.
+See [this](https://github.com/Avaluate/MultipleRobloxInstances/releases/tag/V1 "here") or look at Releases. This works as of 23 January 2025.
 
 ## Multiple Roblox Instances
 This program allows you to run 2 or more different Roblox accounts at the same time.
