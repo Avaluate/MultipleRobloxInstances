@@ -4,7 +4,7 @@ See [this](https://github.com/Avaluate/MultipleRobloxInstances/releases/tag/V1 "
 ## Multiple Roblox Instances
 This program allows you to run 2 or more different Roblox accounts at the same time.
 
-This is not against the Roblox ToS and applications such as Bloxstrap had similar functionality. 
+This is not explicitly against the Roblox Terms of Service. Applications such as Bloxstrap had similar functionality. 
 
 Bloxstrap removed the multiple Roblox instances feature due to fears people were [using it to farm](https://github.com/pizzaboxer/bloxstrap/wiki/Plans-to-remove-multi%E2%80%90instance-launching-from-Bloxstrap) and well as their implementation of multiple Roblox instances being a "hit or miss".
 
@@ -13,9 +13,6 @@ Bloxstrap removed the multiple Roblox instances feature due to fears people were
 #### Current problems
 - Teleporting between places in a universe (for example, between different worlds in a game, or joining a lobby) won't work
 - However, teleporting between different games still works
-
-#### I need help
-My Discord username is `avaluate` if you need help. 
 
 #### How this works
 Note: although the program already states this, closing the program will close all but one of the Roblox windows.
