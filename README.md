@@ -16,15 +16,9 @@ The V2 release of Multiple Roblox Instances:
 * (attempts to) **fix Error 773 / error with teleports**
 * more consistently locks the Roblox process
 * has a basic process manager for seeing which account
-## Is this a virus?
-No.
-## Does Roblox allow this?
-This is not explicitly against the Roblox Terms of Service. Applications such as Bloxstrap had similar functionality. 
 
-Bloxstrap removed the multiple Roblox instances feature due to fears people were [using it to farm](https://github.com/pizzaboxer/bloxstrap/wiki/Plans-to-remove-multi%E2%80%90instance-launching-from-Bloxstrap) and well as their implementation of multiple Roblox instances being a "hit or miss".
-## How this work?
-```csharp
-new Mutex(true, "ROBLOX_singletonMutex");
-```
+See [Releases](https://github.com/Avaluate/MultipleRobloxInstances/releases/tag/V2) for downloads and [Wiki](https://github.com/Avaluate/MultipleRobloxInstances/wiki) for help.
+## Is this a virus?
+No, [see this page for more information.](https://github.com/Avaluate/MultipleRobloxInstances/wiki/Is-this-a-virus%3F)
 ## Brief history
 I originally made this for [MainDab](https://github.com/Avaluate/MainDab), a keyless Roblox exploit. I unarchived this project to improve upon it.
