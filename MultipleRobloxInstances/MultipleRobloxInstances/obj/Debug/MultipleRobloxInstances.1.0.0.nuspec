@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>MultipleRobloxInstances</id>
+    <version>1.0.0</version>
+    <authors>MultipleRobloxInstances</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="6d91e1bcbdb870bf2502935ed0c407819e9ce44d" />
+    <dependencies>
+      <group targetFramework="net8.0-windows7.0" />
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework="net8.0-windows7.0">
+        <frameworkReference name="Microsoft.WindowsDesktop.App.WPF" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="D:\Development\MultipleRobloxInstances\MultipleRobloxInstances\MultipleRobloxInstances\bin\Debug\net8.0-windows\MultipleRobloxInstances.runtimeconfig.json" target="lib\net8.0-windows7.0\MultipleRobloxInstances.runtimeconfig.json" />
+    <file src="D:\Development\MultipleRobloxInstances\MultipleRobloxInstances\MultipleRobloxInstances\bin\Debug\net8.0-windows\MultipleRobloxInstances.dll" target="lib\net8.0-windows7.0\MultipleRobloxInstances.dll" />
+  </files>
+</package>

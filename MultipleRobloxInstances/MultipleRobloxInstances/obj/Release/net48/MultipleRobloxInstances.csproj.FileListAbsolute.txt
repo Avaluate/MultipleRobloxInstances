@@ -1,0 +1,6 @@
+D:\Development\MultipleRobloxInstances\MultipleRobloxInstances\MultipleRobloxInstances\obj\Release\net48\MultipleRobloxInstances.csproj.AssemblyReference.cache
+D:\Development\MultipleRobloxInstances\MultipleRobloxInstances\MultipleRobloxInstances\obj\Release\net48\MainWindow.g.cs
+D:\Development\MultipleRobloxInstances\MultipleRobloxInstances\MultipleRobloxInstances\obj\Release\net48\Resources\RobloxInstance.g.cs
+D:\Development\MultipleRobloxInstances\MultipleRobloxInstances\MultipleRobloxInstances\obj\Release\net48\App.g.cs
+D:\Development\MultipleRobloxInstances\MultipleRobloxInstances\MultipleRobloxInstances\obj\Release\net48\MultipleRobloxInstances_MarkupCompile.cache
+D:\Development\MultipleRobloxInstances\MultipleRobloxInstances\MultipleRobloxInstances\obj\Release\net48\MultipleRobloxInstances_MarkupCompile.lref

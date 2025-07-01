@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "K2MfEItFJFM=",
+  "success": true,
+  "projectFilePath": "D:\\Development\\MultipleRobloxInstances\\MultipleRobloxInstances\\MultipleRobloxInstances\\MultipleRobloxInstances.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Avaluate\\.nuget\\packages\\costura.fody\\6.0.0\\costura.fody.6.0.0.nupkg.sha512",
+    "C:\\Users\\Avaluate\\.nuget\\packages\\fody\\6.8.2\\fody.6.8.2.nupkg.sha512",
+    "C:\\Users\\Avaluate\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.16\\microsoft.net.illink.tasks.8.0.16.nupkg.sha512",
+    "C:\\Users\\Avaluate\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\Avaluate\\.nuget\\packages\\system.codedom\\9.0.6\\system.codedom.9.0.6.nupkg.sha512",
+    "C:\\Users\\Avaluate\\.nuget\\packages\\system.management\\9.0.6\\system.management.9.0.6.nupkg.sha512"
+  ],
+  "logs": []
+}

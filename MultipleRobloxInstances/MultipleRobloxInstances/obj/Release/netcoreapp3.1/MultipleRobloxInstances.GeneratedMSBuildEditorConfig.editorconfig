@@ -1,0 +1,12 @@
+is_global = true
+build_property.EnableAotAnalyzer = false
+build_property.EnableSingleFileAnalyzer = false
+build_property.EnableTrimAnalyzer = false
+build_property.IncludeAllContentForSelfExtract = 
+build_property.RootNamespace = MultipleRobloxInstances
+build_property.ProjectDir = D:\Development\MultipleRobloxInstances\MultipleRobloxInstances\MultipleRobloxInstances\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 
+build_property.EnableCodeStyleSeverity = 
