@@ -14,8 +14,7 @@
 
 The V2 release of Multiple Roblox Instances:
 * (attempts to) **fix Error 773 / error with teleports**
-* more consistently locks the Roblox process
-* has a basic process manager for seeing which account
+* has a basic process manager for seeing accounts
 
 See [Releases](https://github.com/Avaluate/MultipleRobloxInstances/releases/tag/V2) for downloads and [Wiki](https://github.com/Avaluate/MultipleRobloxInstances/wiki) for help.
 ## Is this a virus?
