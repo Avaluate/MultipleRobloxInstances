@@ -9,9 +9,10 @@
     <a title="Discord" href="https://maindab.org/discord"><img alt="Discord" src="https://raw.githubusercontent.com/Avaluate/MultipleRobloxInstances/refs/heads/main/Cover/Discord.png" width=200 height=53></a>
     <a title="Telegram" href="https://t.me/maindabnow"><img alt="Telegram" src="https://raw.githubusercontent.com/Avaluate/MultipleRobloxInstances/refs/heads/main/Cover/Telegram.png" width=200 height=53></a>
   </p>
+  
 ## Support warning
 It looks like Roblox is trying to prevent people from running multiple instances of Roblox. I cannot fix this issue.
-
+## About
 **Multiple Roblox Instances is a tool used to run multiple windows of Roblox on different accounts at the same time.** 
 
 The V2 release of Multiple Roblox Instances:
