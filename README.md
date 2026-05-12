@@ -9,17 +9,18 @@
     <a title="Discord" href="https://maindab.org/discord"><img alt="Discord" src="https://raw.githubusercontent.com/Avaluate/MultipleRobloxInstances/refs/heads/main/Cover/Discord.png" width=200 height=53></a>
     <a title="Telegram" href="https://t.me/maindabnow"><img alt="Telegram" src="https://raw.githubusercontent.com/Avaluate/MultipleRobloxInstances/refs/heads/main/Cover/Telegram.png" width=200 height=53></a>
   </p>
-  
-## Support warning
-* **Bloxstrap, Voidstrap, and other similar applications may interfere with Multiple Roblox Instances.** Voidstrap in particular locks a Roblox log file which Multiple Roblox Instances needs to access to determine what game you're in. This should not be an issue, though it may help removing such applications before running Multiple Roblox Instances.
-* **Roblox is actively trying to prevent people from running multiple instances of Roblox** by closing other windows after a random amount of time. This is to prevent farming.
-* **I specifically made this tool to help myself with Roblox game development, not for farming purposes!** Do not expect me to attempt to bypass any prevention methods placed by Roblox in the future.
+
 ## About
 **Multiple Roblox Instances is a tool used to run multiple windows of Roblox on different accounts at the same time.** 
 
 The V2 release of Multiple Roblox Instances:
 * (attempts to) **fix Error 773 / error with teleports**
 * has a basic process manager for seeing accounts
+
+## Support warning
+* **Bloxstrap, Voidstrap, and other similar applications may interfere with Multiple Roblox Instances.** Voidstrap in particular locks a Roblox log file which Multiple Roblox Instances needs to access to determine what game you're in. This should not be an issue, though it may help removing such applications before running Multiple Roblox Instances.
+* **Roblox is actively trying to prevent people from running multiple instances of Roblox** by closing other windows after a random amount of time. This is to prevent farming.
+* **I specifically made this tool to help myself with Roblox game development, not for farming purposes!** Do not expect me to attempt to bypass any prevention methods placed by Roblox in the future.
 
 See [Releases](https://github.com/Avaluate/MultipleRobloxInstances/releases/tag/V2) for downloads and [Wiki](https://github.com/Avaluate/MultipleRobloxInstances/wiki) for help.
 ## Is this a virus?
