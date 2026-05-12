@@ -15,20 +15,15 @@ namespace MultipleRobloxInstances
 {
     public partial class MainWindow : Window
     {
-        // --------------- //
-        // ** VARIABLES ** //
-        // --------------- //
-        public readonly string Version = "2.1"; // of app
-        public readonly string RobloxPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Roblox");
+        public readonly string Version = "2.2";
+        public readonly string RobloxPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Roblox");
         public bool LastTaskIsRoblox = false; // 2nd log is the real one
         public FileInfo Last;
         public Mutex RobloxLock;
         public FileStream RobloxCookieLock;
         public readonly string WindowsUser = Environment.UserDomainName + "\\" + Environment.UserName;
+        private static readonly HttpClient RobloxAPI = new HttpClient();
 
-        // ----------------------- //
-        // ** GENERAL FUNCTIONS ** //
-        // ----------------------- //
         public int RobloxInstancesOpen()
         {
             Process[] pname = Process.GetProcessesByName("RobloxPlayerBeta");
@@ -36,7 +31,7 @@ namespace MultipleRobloxInstances
         }
 
         // to simplify
-        public FileInfo MostRecentRobloxLogFile()
+        public FileInfo? MostRecentRobloxLogFile()
         {
             DirectoryInfo Directory = new DirectoryInfo(System.IO.Path.Combine(RobloxPath, "logs"));
             FileInfo[] FileInf = Directory.GetFiles();
@@ -46,21 +41,17 @@ namespace MultipleRobloxInstances
 
             if (MostRecent != null)
             {
-                Console.WriteLine("Most recently edited file:");
-                Console.WriteLine($"Name: {MostRecent.Name}");
-                Console.WriteLine($"Last Write Time: {MostRecent.LastWriteTime}");
                 return MostRecent;
             }
             else
             {
-                Console.WriteLine("No files found in the directory.");
                 return null;
             }
         }
 
         public string[] ReadViaShadowCopy(string filePath)
         {
-            string tempPath = System.IO.Path.GetTempFileName();
+            string tempPath = Path.GetTempFileName();
 
             try
             {
@@ -70,18 +61,27 @@ namespace MultipleRobloxInstances
             finally
             {
                 if (File.Exists(tempPath))
+                {
                     File.Delete(tempPath);
+                }
             }
         }
 
+
         public bool CheckIfProcessExists(int PID)
         {
-            return Process.GetProcesses().Any(
-                Proc => Proc.Id == PID
-            );
+            try
+            {
+                using Process p = Process.GetProcessById(PID);
+                return !p.HasExited;
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
         }
 
-        public Dictionary<string, string> GetRobloxDetails(string[] Lines)
+        public Dictionary<string, string>? GetRobloxDetails(string[] Lines)
         {
             foreach (string line in Lines)
             {
@@ -188,22 +188,15 @@ namespace MultipleRobloxInstances
         public void ProcessWatchEvent(object sender, EventArrivedEventArgs e)
         {
             // 2nd task is valid Roblox
-            Console.WriteLine("Process started: {0}", e.NewEvent.Properties["ProcessName"].Value);
 
             if ((string)e.NewEvent.Properties["ProcessName"].Value == "RobloxPlayerBeta.exe")
             {
                 if (Debounce)
                 {
                     Debounce = false;
-                    Console.WriteLine("Roblox started");
-
-                    // check for newest next Roblox log file
-                    Console.WriteLine(Convert.ToInt32(e.NewEvent.Properties["ProcessID"].Value));
-
-                    Task.Run(() =>
+                    Task.Run(async () =>
                     {
-                        // is this correct?
-                        CheckMoitorLog(Convert.ToInt32(e.NewEvent.Properties["ProcessID"].Value));
+                        await CheckMoitorLog(Convert.ToInt32(e.NewEvent.Properties["ProcessID"].Value));
                     });
                 }
                 else
@@ -224,7 +217,6 @@ namespace MultipleRobloxInstances
                 FileInfo MostRecent = MostRecentRobloxLogFile();
                 if (MostRecent.FullName != Last.FullName)
                 {
-                    Console.WriteLine("CheckMonitorLog found Roblox file: " + MostRecent.FullName);
                     Last = MostRecentRobloxLogFile();
                     _ = ReadFromLog(MostRecent.FullName, RobloxProcessID);
                     break;
@@ -239,20 +231,27 @@ namespace MultipleRobloxInstances
             string DisplayName = "Failed to obtain";
             string RobloxUsername = "Failed to obtain";
             string RobloxAvatarUrl = "Failed";
-            bool RobloxIsClose = false;
             bool ObtainedRobloxDetails = false;
-            int UIIndex = 900000; // all the way at the top
+            int UIIndex = 900000;
 
-            while (!RobloxIsClose)
+            Process RblxProcess = null;
+            try
             {
-                if (CheckIfProcessExists(RobloxProcessID))
+                RblxProcess = Process.GetProcessById(RobloxProcessID);
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
+            using (RblxProcess)
+            {
+                while (!RblxProcess.HasExited)
                 {
-                    Console.WriteLine("Reading " + File);
-
-                    string[] Data = ReadViaShadowCopy(File);
-
                     if (!ObtainedRobloxDetails)
                     {
+                        string[] Data = ReadViaShadowCopy(File);
+
                         try
                         {
                             Dictionary<string, string> RobloxDetails = GetRobloxDetails(Data);
@@ -262,18 +261,24 @@ namespace MultipleRobloxInstances
                                 string UniverseID = RobloxDetails["Universe"];
                                 string RobloxID = RobloxDetails["UserID"];
 
-                                HttpClient RobloxAPI = new();
-
                                 // universe -> place name
                                 try
                                 {
                                     HttpResponseMessage UniverseRes = await RobloxAPI.GetAsync($"https://games.roblox.com/v1/games?universeIds={UniverseID}");
                                     string UniverseResString = await UniverseRes.Content.ReadAsStringAsync();
-                                    JObject UniverseJson = JObject.Parse(UniverseResString);
-                                    Console.WriteLine(UniverseResString);
-                                    GameName = UniverseJson["data"][0]["name"].ToString();
+
+                                    // damn roblox
+                                    if (String.IsNullOrEmpty(UniverseResString) || UniverseResString == "{\"data\":[]}")
+                                    {
+                                        GameName = "[Private experience]";
+                                    }
+                                    else
+                                    {
+                                        JObject UniverseJson = JObject.Parse(UniverseResString);
+                                        GameName = UniverseJson["data"][0]["name"].ToString();
+                                    }
                                 }
-                                catch (Exception ex){ Console.WriteLine($"Error when using Roblox API for place name: {ex}"); }
+                                catch (Exception) { }
 
                                 // user id -> username
                                 try
@@ -284,7 +289,7 @@ namespace MultipleRobloxInstances
                                     DisplayName = UsernameJson["displayName"].ToString();
                                     RobloxUsername = UsernameJson["name"].ToString();
                                 }
-                                catch (Exception ex) { Console.WriteLine($"Error when using Roblox API for username: {ex}"); }
+                                catch (Exception) { }
 
                                 // user id -> avatar img
                                 try
@@ -294,16 +299,10 @@ namespace MultipleRobloxInstances
                                     JObject AvatarJson = JObject.Parse(AvatarResString);
                                     RobloxAvatarUrl = AvatarJson["data"][0]["imageUrl"].ToString();
                                 }
-                                catch (Exception ex) { Console.WriteLine($"Error when using Roblox API for avatar: {ex}"); }
-
-                                Console.WriteLine($"Final detail: game name {GameName} display {DisplayName} username {RobloxUsername} avatar {RobloxAvatarUrl}");
+                                catch (Exception) { }
 
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    Console.WriteLine("*** NOW ADDING TO UI ***");
-
-                                    // remove any previous
-
                                     // add to UI
                                     RobloxInstance NewInstance = new RobloxInstance();
                                     this.WP1.Children.Add(NewInstance);
@@ -312,13 +311,14 @@ namespace MultipleRobloxInstances
                                     // button
                                     void KillRoblox()
                                     {
-                                        Console.WriteLine("Killing process " + RobloxProcessID);
                                         try
                                         {
-                                            Process Rblx = Process.GetProcessById(RobloxProcessID);
-                                            Rblx.Kill();
+                                            if (!RblxProcess.HasExited)
+                                            {
+                                                RblxProcess.Kill();
+                                            }
                                         }
-                                        catch (Exception ex) { Console.WriteLine(ex); this.WP1.Children.Remove(NewInstance); }
+                                        catch (Exception) { this.WP1.Children.Remove(NewInstance); }
                                     }
 
                                     NewInstance.KilInstance.Click += (_, _) => KillRoblox();
@@ -346,50 +346,34 @@ namespace MultipleRobloxInstances
                                     Task.Delay(100);
                                     Fade(NewInstance.PFP, 0, 1, 0.5);
                                     Move(NewInstance.PFP, new Thickness(NewInstance.PFP.Margin.Left, NewInstance.PFP.Margin.Top - 20, NewInstance.PFP.Margin.Right, NewInstance.PFP.Margin.Bottom), NewInstance.PFP.Margin, 0.75);
-                                     Task.Delay(100);
+                                    Task.Delay(100);
                                     Fade(NewInstance.DisplayName, 0, 1, 0.5);
                                     Move(NewInstance.DisplayName, new Thickness(NewInstance.DisplayName.Margin.Left, NewInstance.DisplayName.Margin.Top - 20, NewInstance.DisplayName.Margin.Right, NewInstance.DisplayName.Margin.Bottom), NewInstance.DisplayName.Margin, 0.75);
-                                     Task.Delay(100);
+                                    Task.Delay(100);
                                     Fade(NewInstance.FullUsername, 0, 1, 0.5);
                                     Move(NewInstance.FullUsername, new Thickness(NewInstance.FullUsername.Margin.Left, NewInstance.FullUsername.Margin.Top - 20, NewInstance.FullUsername.Margin.Right, NewInstance.FullUsername.Margin.Bottom), NewInstance.FullUsername.Margin, 0.75);
-                                     Task.Delay(100);
+                                    Task.Delay(100);
                                     Fade(NewInstance.GameName, 0, 1, 0.5);
                                     Move(NewInstance.GameName, new Thickness(NewInstance.GameName.Margin.Left, NewInstance.GameName.Margin.Top - 20, NewInstance.GameName.Margin.Right, NewInstance.GameName.Margin.Bottom), NewInstance.GameName.Margin, 0.75);
-                                     Task.Delay(100);
+                                    Task.Delay(100);
                                     Fade(NewInstance.KilInstance, 0, 1, 0.5);
                                     Move(NewInstance.KilInstance, new Thickness(NewInstance.KilInstance.Margin.Left, NewInstance.KilInstance.Margin.Top - 20, NewInstance.KilInstance.Margin.Right, NewInstance.KilInstance.Margin.Bottom), NewInstance.KilInstance.Margin, 0.75);
-
-                                    Console.WriteLine("*** ADDED TO UI! ***");
-
 
                                 });
 
                                 ObtainedRobloxDetails = true;
                             }
-                            else
-                            {
-                                Console.WriteLine("Unable to find string in log");
-                            }
                         }
-                        catch(Exception ex)
-                        {
-                            Console.WriteLine("Error attempting to get Roblox API data: " + ex);
-                        }
+                        catch (Exception) { }
                     }
-                }
-                else
-                {
-                    RobloxIsClose = true;
-                }
 
-                Thread.Sleep(1000);
+                    await Task.Delay(1000);
+                }
             }
-
-            Console.WriteLine("Roblox process closed");
 
             this.Dispatcher.Invoke(() =>
             {
-                try{ this.WP1.Children.RemoveAt(UIIndex); }
+                try { this.WP1.Children.RemoveAt(UIIndex); }
                 catch { }
             });
         }
@@ -423,6 +407,7 @@ namespace MultipleRobloxInstances
                 }
             }
 
+            // deprecated
             WebClient WebStuff = new WebClient();
             string VersionGet = WebStuff.DownloadString("https://raw.githubusercontent.com/Avaluate/MultipleRobloxInstances/refs/heads/main/UpdateAssets/Version");
             WebStuff.Dispose();
@@ -438,14 +423,11 @@ namespace MultipleRobloxInstances
             // start watching for rblx
             ProcessWatch();
 
-            // remove previous locks first & make again
-            // ROBLOX_singletonEvent is also locked
-            try { Mutex.OpenExisting("ROBLOX_singletonMutex").Close(); Mutex.OpenExisting("ROBLOX_singletonEvent").Close(); Console.WriteLine("Roblox mutex found, closing"); }
+
+            try { Mutex.OpenExisting("ROBLOX_singletonMutex").Close(); }
             catch{ }
 
-            // double lock seems to work well
-            bool success = false;
-            RobloxLock = new Mutex(true, "ROBLOX_singletonMutex", out success);
+            RobloxLock = new Mutex(true, "ROBLOX_singletonMutex", out bool success);
             if (!success)
             {
                 MessageBox.Show("Failed to lock Roblox process, maybe another software you're using (i.e. a Roblox launcher) already utilises multiple roblox instances?");
@@ -460,9 +442,9 @@ namespace MultipleRobloxInstances
             {
                 RobloxCookieLock = new FileStream(System.IO.Path.Combine(RobloxPath, "LocalStorage", "RobloxCookies.dat"), FileMode.Open, FileAccess.Read, FileShare.None);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show($"Failed to apply Error 773 fix: {ex}. You may not be able to teleport between places.");
+                MessageBox.Show($"Failed to apply Error 773 fix, maybe another program (i.e. a Roblox launcher) already applied some fix?");
             }
         }
 
@@ -520,11 +502,11 @@ namespace MultipleRobloxInstances
         {
             // make all components transparent at first
             Fade(MW, 1, 0, 0);
-            Fade(Title, 1, 0, 0);
+            Fade(WindowTitle, 1, 0, 0);
             Fade(VersionBorder, 1, 0, 0);
             Fade(VersionText, 1, 0, 0);
             Fade(Minimise, 1, 0, 0);
-            Fade(Close, 1, 0, 0);
+            Fade(CloseWindow, 1, 0, 0);
             Fade(StatusText, 1, 0, 0);
             Fade(WebsiteIcon, 1, 0, 0);
             Fade(TelegramIcon, 1, 0, 0);
@@ -534,8 +516,8 @@ namespace MultipleRobloxInstances
             await Task.Delay(100);
             Fade(MW, 0, 1, 1);
             await Task.Delay(100);
-            Fade(Title, 0, 1, 0.5);
-            Move(Title, new Thickness(Title.Margin.Left, Title.Margin.Top - 30, Title.Margin.Right, Title.Margin.Bottom), Title.Margin, 0.75);
+            Fade(WindowTitle, 0, 1, 0.5);
+            Move(WindowTitle, new Thickness(WindowTitle.Margin.Left, WindowTitle.Margin.Top - 30, WindowTitle.Margin.Right, WindowTitle.Margin.Bottom), WindowTitle.Margin, 0.75);
             await Task.Delay(100);
             Fade(VersionBorder, 0, 1, 0.5);
             Move(VersionBorder, new Thickness(VersionBorder.Margin.Left, VersionBorder.Margin.Top - 30, VersionBorder.Margin.Right, VersionBorder.Margin.Bottom), VersionBorder.Margin, 0.75);
@@ -545,8 +527,8 @@ namespace MultipleRobloxInstances
             Fade(Minimise, 0, 1, 0.5);
             Move(Minimise, new Thickness(Minimise.Margin.Left, Minimise.Margin.Top - 30, Minimise.Margin.Right, Minimise.Margin.Bottom), Minimise.Margin, 0.75);
             await Task.Delay(100);
-            Fade(Close, 0, 1, 0.5);
-            Move(Close, new Thickness(Close.Margin.Left, Close.Margin.Top - 30, Close.Margin.Right, Close.Margin.Bottom), Close.Margin, 0.75);
+            Fade(CloseWindow, 0, 1, 0.5);
+            Move(CloseWindow, new Thickness(CloseWindow.Margin.Left, CloseWindow.Margin.Top - 30, CloseWindow.Margin.Right, CloseWindow.Margin.Bottom), CloseWindow.Margin, 0.75);
             await Task.Delay(100);
             Fade(StatusText, 0, 1, 0.5);
             Move(StatusText, new Thickness(StatusText.Margin.Left, StatusText.Margin.Top + 17, StatusText.Margin.Right, StatusText.Margin.Bottom), StatusText.Margin, 0.75);

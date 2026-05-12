@@ -202,7 +202,7 @@
                 <ColumnDefinition Width="23*"/>
             </Grid.ColumnDefinitions>
             <Grid x:Name="TopBar" Margin="0,0,-2,279" Grid.ColumnSpan="2">
-                <Label x:Name="Title" Content="Multiple Roblox Instances" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" RenderTransformOrigin="0.5,0.5" Width="237" FontFamily="Calibri Light" Foreground="White" Margin="4,0,0,0" FontSize="22">
+                <Label x:Name="WindowTitle" Content="Multiple Roblox Instances" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" RenderTransformOrigin="0.5,0.5" Width="237" FontFamily="Calibri Light" Foreground="White" Margin="4,0,0,0" FontSize="22">
                     <Label.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform ScaleY="1"/>
@@ -212,10 +212,10 @@
                         </TransformGroup>
                     </Label.RenderTransform>
                 </Label>
-                <Button x:Name="Close" Content="X" HorizontalAlignment="Left" Margin="489,0,0,0" VerticalAlignment="Center"  Template ="{DynamicResource NoHighlightBut}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Calibri Light" Height="30" Width="21" FontSize="20" Click="Close_Click"/>
+                <Button x:Name="CloseWindow" Content="X" HorizontalAlignment="Left" Margin="489,0,0,0" VerticalAlignment="Center"  Template ="{DynamicResource NoHighlightBut}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Calibri Light" Height="30" Width="21" FontSize="20" Click="Close_Click"/>
                 <Button x:Name="Minimise" Content="—" HorizontalAlignment="Left" Margin="454,0,0,0" VerticalAlignment="Center"  Template ="{DynamicResource NoHighlightBut}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Calibri Light" Height="30" Width="21" FontSize="20" Click="Minimise_Click"/>
                 <Border x:Name="VersionBorder" BorderThickness="1" HorizontalAlignment="Left" Height="16" CornerRadius="5 5 5 5" VerticalAlignment="Center" Width="28" BorderBrush="#FF9B62F9" Margin="244,0,0,0"/>
-                <TextBlock x:Name="VersionText" HorizontalAlignment="Left" Height="14" TextWrapping="Wrap" VerticalAlignment="Center" Width="28" Foreground="#FF9A9898" FontFamily="Calibri Light" FontSize="10" TextAlignment="Center" Margin="244,0,0,-1.5"><Run Text="2."/><Run Language="en-gb" Text="1"/></TextBlock>
+                <TextBlock x:Name="VersionText" HorizontalAlignment="Left" Height="14" TextWrapping="Wrap" VerticalAlignment="Center" Width="28" Foreground="#FF9A9898" FontFamily="Calibri Light" FontSize="10" TextAlignment="Center" Margin="244,0,0,-1.5"><Run Text="2."/><Run Language="en-gb" Text="2"/></TextBlock>
                 <TextBlock x:Name="UpdateAvailable" HorizontalAlignment="Left" Height="14" TextWrapping="Wrap" VerticalAlignment="Center" Width="149.7" Foreground="#FF646464" FontFamily="Calibri Light" FontSize="10" TextAlignment="Left" Margin="280,0,0,-1.5" MouseDown="UpdateAvailable_MouseDown" Visibility="Hidden"><Run Language="en-hk" Text="Update available"/></TextBlock>
             </Grid>
             <ScrollViewer x:Name="InstancesScrollView" HorizontalAlignment="Left" Height="261" VerticalAlignment="Top" Width="522" Grid.IsSharedSizeScope="True" Grid.ColumnSpan="2" Margin="0,35,0,0">
